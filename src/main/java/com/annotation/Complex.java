@@ -12,7 +12,7 @@ import java.util.Date;
  * @author: zxw
  **/
 public class Complex {
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
     private Money money;

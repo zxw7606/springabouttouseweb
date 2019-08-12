@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.annotation.Complex;
+import com.annotation.User;
 import org.javamoney.moneta.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,14 @@ public class ConvertController {
     public Complex getSee() {
         Complex complex = new Complex();
         complex.setDate(new Date());
-        complex.setMoney(Money.of(10000000, Currency.getInstance(Locale.getDefault()).getCurrencyCode()));
+        User user = new User();
+        user.setId(123);
+        user.setName("user");
+        complex.setUser(user);
+        complex.setMoney(
+                Money.of(10000000,
+                        Currency.getInstance(Locale.getDefault())
+                                .getCurrencyCode()));
         return complex;
     }
 
