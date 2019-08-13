@@ -2,23 +2,34 @@ package com;
 
 
 import com.annotation.UserAnnotationFormatterFactory;
-import com.sun.corba.se.spi.resolver.LocalResolver;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.json.DateJsonSerializer;
+import com.json.MoneySerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.format.datetime.DateTimeFormatAnnotationFormatterFactory;
 import org.springframework.format.number.money.MonetaryAmountFormatter;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.money.MonetaryAmount;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -44,6 +55,20 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
         return localeResolver;
     }
 
+    @Autowired
+    private DateJsonSerializer dateJsonSerializer;
+    @Autowired
+    private MoneySerializer moneySerializer;
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder
+                .json()
+                .serializerByType(Date.class,dateJsonSerializer)
+                .serializerByType(MonetaryAmount.class,moneySerializer)
+                .build();
+        converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
+    }
+
 
     /***************************************************************************************************/
 
@@ -57,23 +82,24 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
      * @return:
      * @Author: zxw
      */
+    @Bean
+    public DateFormatter dateFormatter() {
+        return new DateFormatter("yyyy-MM-dd HH:mm:ss");
+    }
+
+    @Bean
+    public MonetaryAmountFormatter monetaryAmountFormatter() {
+        return new MonetaryAmountFormatter();
+    }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatter(new MonetaryAmountFormatter());
+        registry.addFormatter(monetaryAmountFormatter());
+        registry.addFormatter(dateFormatter());
         registry.addFormatterForFieldAnnotation(new DateTimeFormatAnnotationFormatterFactory());
         registry.addFormatterForFieldAnnotation(new UserAnnotationFormatterFactory());
     }
 
-//    @Bean("conversionService")
-//    public FormattingConversionServiceFactoryBean conversionServiceFactoryBean() {
-//        logger.info("FormattingConversionServiceFactoryBean start");
-//        FormattingConversionServiceFactoryBean factoryBean = new FormattingConversionServiceFactoryBean();
-//        Set<Object> set = new HashSet<>();
-//        set.add(new MonetaryAmountFormatter());
-//        set.add(new UserAnnotationFormatterFactory());
-//        factoryBean.setFormatters(set);
-//        return factoryBean;
-//    }
 
     /***************************************************************************************************/
 

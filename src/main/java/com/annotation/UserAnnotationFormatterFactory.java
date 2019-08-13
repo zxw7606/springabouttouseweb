@@ -26,7 +26,7 @@ public class UserAnnotationFormatterFactory implements AnnotationFormatterFactor
     @Override
     public Set<Class<?>> getFieldTypes() {
         HashSet<Class<?>> set = new HashSet<>();
-        set.add(UserFormat.class);
+        set.add(User.class);
         return set;
     }
 
@@ -55,7 +55,10 @@ public class UserAnnotationFormatterFactory implements AnnotationFormatterFactor
         @Override
         public User parse(String text, Locale locale) throws ParseException {
             try {
-                return mapper.readValue(text, User.class);
+
+                User user = mapper.readValue(text, User.class);
+                user.setName(user.getName()+"parse by userFormatter.");
+                return user;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -65,9 +68,7 @@ public class UserAnnotationFormatterFactory implements AnnotationFormatterFactor
         @Override
         public String print(User object, Locale locale) {
             try {
-                if (!object.getName().contains("translate by userFormatter.")) {
-                    object.setName(object.getName() + "\n translate by userFormatter.");
-                }
+                    object.setName(object.getName() + "\n print by userFormatter.");
                 return mapper.writeValueAsString(object);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();

@@ -12,6 +12,7 @@ import java.util.Date;
  * @author: zxw
  **/
 public class Complex {
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
