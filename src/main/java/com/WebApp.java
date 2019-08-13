@@ -51,6 +51,7 @@ public class WebApp implements WebApplicationInitializer {
         ServletRegistration.Dynamic dispatcher =
                 container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext));
         dispatcher.setLoadOnStartup(1);
+        dispatcher.setAsyncSupported(true); //异步Controller支持
         dispatcher.addMapping("/");
     }
 
