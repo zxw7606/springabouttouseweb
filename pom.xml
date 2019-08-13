@@ -18,25 +18,36 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring.version>4.3.24.RELEASE</spring.version>
-        <tomcat.version>7.0.86</tomcat.version>
+        <tomcat.version>7.0.96</tomcat.version>
+        <validator.version>6.0.15.Final</validator.version>
+        <moneta.version>1.2.1</moneta.version>
     </properties>
 
     <dependencies>
 
 
+
+
+        <!--数据绑定验证-->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${validator.version}</version>
+        </dependency>
+
         <!--  货币      -->
         <dependency>
             <groupId>org.javamoney.moneta</groupId>
             <artifactId>moneta-core</artifactId>
-            <version>1.2.1</version>
+            <version>${moneta.version}</version>
         </dependency>
 
         <!--json and xml-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.dataformat</groupId>-->
-<!--            <artifactId>jackson-dataformat-xml</artifactId>-->
-<!--            <version>2.9.8</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.fasterxml.jackson.dataformat</groupId>-->
+        <!--            <artifactId>jackson-dataformat-xml</artifactId>-->
+        <!--            <version>2.9.8</version>-->
+        <!--        </dependency>-->
 
 
         <dependency>
@@ -93,6 +104,11 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
         </dependency>
     </dependencies>
 
@@ -198,6 +214,13 @@
                             <groupId>org.apache.tomcat.embed</groupId>
                             <artifactId>tomcat-embed-logging-log4j</artifactId>
                             <version>${tomcat.version}</version>
+                        </dependency>
+
+                        <!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
+                        <dependency>
+                            <groupId>javax.el</groupId>
+                            <artifactId>javax.el-api</artifactId>
+                            <version>3.0.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>

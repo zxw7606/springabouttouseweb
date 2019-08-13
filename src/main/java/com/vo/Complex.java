@@ -1,16 +1,18 @@
-package com.annotation;
+package com.vo;
 
 
+import com.annotation.UserFormat;
 import org.javamoney.moneta.Money;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
 /**
- * @description:
+ * @description: example for 格式化输出和输入的数据绑定
  * @create: 2019-08-12 20:49
  * @author: zxw
  **/
+
 public class Complex {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

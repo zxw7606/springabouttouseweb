@@ -19,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -55,6 +57,16 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
         return localeResolver;
     }
 
+    
+    /** 
+    * @Description: 配置JacksonMessageConvert 
+    * @Date: 2019/8/13
+    * @Param:  
+    * @return:  
+    * @Author: zxw
+    *  
+    */
+    
     @Autowired
     private DateJsonSerializer dateJsonSerializer;
     @Autowired
@@ -128,5 +140,11 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
         registry.enableContentNegotiation(jackson2JsonView);
         registry.jsp("/WEB-INF/", ".jsp");
 
+    }
+
+
+    @Override
+    public Validator getValidator() {
+        return new LocalValidatorFactoryBean();
     }
 }

@@ -12,10 +12,11 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
- * @description:
+ * @description: 仅仅是针对Jackson对Money序列化的配置
  * @create: 2019-08-13 11:16
  * @author: zxw
  **/
+
 @Component
 public class MoneySerializer extends JsonSerializer<MonetaryAmount> {
 

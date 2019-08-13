@@ -11,8 +11,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Locale;
 
+
 /**
- * @description:
+ * @description: 仅仅是针对Jackson对Date序列化的配置
  * @create: 2019-08-13 11:10
  * @author: zxw
  **/

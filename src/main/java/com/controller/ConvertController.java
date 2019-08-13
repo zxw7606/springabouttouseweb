@@ -1,8 +1,8 @@
 package com.controller;
 
-import com.annotation.Complex;
-import com.annotation.User;
 import com.utils.ConverterUtils;
+import com.vo.Complex;
+import com.vo.User;
 import org.javamoney.moneta.Money;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +39,7 @@ public class ConvertController {
 
     /**
      * 类型转换的测试
+     *
      * @param modelAndView
      * @param complex
      * @param request      http://localhost:9999/seeObj?date=1996-11-11 11:11:11&money=CNY 11111&user={"id":"123","name":"4456"}
@@ -48,7 +49,7 @@ public class ConvertController {
         String dateS = ConverterUtils.convertToString(conversionService, complex.getDate());
         String moneyS = ConverterUtils.convertToString(conversionService, complex.getMoney());
 //        String userS = ConverterUtils.convertToString(conversionService, complex.getUser());
-        logger.info("date = {}, money={} ",dateS,moneyS);
+        logger.info("date = {}, money={} ", dateS, moneyS);
         modelAndView.setViewName("index");
         return modelAndView;
     }
@@ -60,7 +61,7 @@ public class ConvertController {
         Complex complex = new Complex();
         complex.setUser(new User());
         Currency currency = Currency.getInstance(Locale.getDefault());
-        complex.setMoney(Money.of(10000,currency.getCurrencyCode()));
+        complex.setMoney(Money.of(10000, currency.getCurrencyCode()));
         complex.setDate(new Date());
         return complex;
     }
