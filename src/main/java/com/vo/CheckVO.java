@@ -2,10 +2,12 @@ package com.vo;
 
 import com.annotation.UserFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.validator.Create;
 import com.validator.UserConstrain;
 import org.javamoney.moneta.Money;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -16,14 +18,14 @@ import java.util.Date;
  **/
 public class CheckVO {
 
-    @NotNull(message = "CheckVO name 不能为空")
+    @NotEmpty(groups = {Create.class})
     private String name;
     @Min(0)
     private int age;
     private Money money;
 
     @UserFormat
-    @UserConstrain(message = "用户的名字不能为name")
+    @UserConstrain
     private User user;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -22,7 +22,7 @@ public class CheckVOValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        logger.info("模拟验证");
-        errors.rejectValue("name","name.test");
+        logger.info("checkVoValidator is validating ");
+//        errors.rejectValue("name","name.test");
     }
 }

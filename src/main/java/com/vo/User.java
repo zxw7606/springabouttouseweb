@@ -15,7 +15,7 @@ public class User {
 
     private int id;
 
-    @Null(message = "用户名字不能存在")
+    @Null
     private String name;
 
     public int getId() {

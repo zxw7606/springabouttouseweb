@@ -23,7 +23,7 @@ public class WebApp implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext container) {
-        container.setInitParameter("debug","true");
+        container.setInitParameter("debug", "true");
 
         logger.info("invoke by SpringServletContainerInitializer...");
 
@@ -46,6 +46,7 @@ public class WebApp implements WebApplicationInitializer {
 
         // 配置
         dispatcherContext.register(DispatcherConfig.class);
+        dispatcherContext.scan("com.config");
 
         // DispatcherServlet添加上下文并映射
         ServletRegistration.Dynamic dispatcher =

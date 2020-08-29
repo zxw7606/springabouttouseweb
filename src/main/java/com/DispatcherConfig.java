@@ -8,6 +8,7 @@ import com.json.MoneySerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+import javax.annotation.Resource;
 import javax.money.MonetaryAmount;
 import java.util.Date;
 import java.util.List;
@@ -142,9 +144,14 @@ public class DispatcherConfig extends WebMvcConfigurerAdapter {
 
     }
 
+    @Resource
+    private MessageSource messageSource;
 
     @Override
     public Validator getValidator() {
-        return new LocalValidatorFactoryBean();
+        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+        localValidatorFactoryBean.setValidationMessageSource(messageSource);
+        return localValidatorFactoryBean;
+
     }
 }
